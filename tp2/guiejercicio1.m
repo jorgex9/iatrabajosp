@@ -22,7 +22,7 @@ function varargout = guiejercicio1(varargin)
 
 % Edit the above text to modify the response to help guiejercicio1
 
-% Last Modified by GUIDE v2.5 06-May-2016 14:24:56
+% Last Modified by GUIDE v2.5 08-May-2016 12:24:58
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -74,19 +74,24 @@ function varargout = guiejercicio1_OutputFcn(hObject, eventdata, handles)
 varargout{1} = handles.output;
 
 
-% --- Executes on selection change in popupmenu2.
-function popupmenu2_Callback(hObject, eventdata, handles)
-% hObject    handle to popupmenu2 (see GCBO)
+% --- Executes on selection change in numpart1.
+function numpart1_Callback(hObject, eventdata, handles)
+% hObject    handle to numpart1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+part = get(handles.numpart1,'Value');
+var1 = handles.var1;
+set(handles.pt1,'String',int2str(var1(part,1)));
+set(handles.pt2,'String',int2str(var1(part,2)));
+set(handles.pt3,'String',int2str(var1(part,3)));
 
-% Hints: contents = cellstr(get(hObject,'String')) returns popupmenu2 contents as cell array
-%        contents{get(hObject,'Value')} returns selected item from popupmenu2
+% Hints: contents = cellstr(get(hObject,'String')) returns numpart1 contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from numpart1
 
 
 % --- Executes during object creation, after setting all properties.
-function popupmenu2_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to popupmenu2 (see GCBO)
+function numpart1_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to numpart1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -98,18 +103,18 @@ end
 
 
 
-function edit2_Callback(hObject, eventdata, handles)
-% hObject    handle to edit2 (see GCBO)
+function namePart_Callback(hObject, eventdata, handles)
+% hObject    handle to namePart (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of edit2 as text
-%        str2double(get(hObject,'String')) returns contents of edit2 as a double
+% Hints: get(hObject,'String') returns contents of namePart as text
+%        str2double(get(hObject,'String')) returns contents of namePart as a double
 
 
 % --- Executes during object creation, after setting all properties.
-function edit2_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to edit2 (see GCBO)
+function namePart_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to namePart (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -125,21 +130,55 @@ function pushbutton1_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+paramT1(1)= str2num(get(handles.pt1,'String'));
+paramT1(2) = str2num(get(handles.pt2,'String'));
+paramT1(3) = str2num(get(handles.pt3,'String'));
+hold on
+
+var1 = handles.var1;
+numPart1 = get(handles.numpart1,'Value');
+x1 = 0:0.1: handles.rmax1;
+y1 = triangulo(x1,paramT1);
+switch numPart1
+    case 1
+        plot(handles.axesvar1,x1,y1,'-m')
+        var1(1,:) = paramT1;
+    case 2
+        plot(handles.axesvar1,x1,y1,'-r')
+        var1(2,:) = paramT1;
+    case 3
+        plot(handles.axesvar1,x1,y1,'-g')
+        var1(3,:) = paramT1;
+    case 4
+        plot(handles.axesvar1,x1,y1,'-b')
+        var1(4,:) = paramT1;
+    case 5
+        plot(handles.axesvar1,x1,y1,'-y')
+        var1(5,:) = paramT1;
+    case 6
+        plot(handles.axesvar1,x1,y1,'-c')
+        var1(6,:) = paramT1;
+    case 7
+        plot(handles.axesvar1,x1,y1,'-k')
+        var1(7,:) = paramT1;
+end
+
+handles.var1 = var1;
+guidata(hObject, handles);
 
 
-
-function edit3_Callback(hObject, eventdata, handles)
-% hObject    handle to edit3 (see GCBO)
+function pt1_Callback(hObject, eventdata, handles)
+% hObject    handle to pt1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of edit3 as text
-%        str2double(get(hObject,'String')) returns contents of edit3 as a double
+% Hints: get(hObject,'String') returns contents of pt1 as text
+%        str2double(get(hObject,'String')) returns contents of pt1 as a double
 
 
 % --- Executes during object creation, after setting all properties.
-function edit3_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to edit3 (see GCBO)
+function pt1_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to pt1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -202,16 +241,22 @@ function pushbutton2_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
+
 var1name = get(handles.var1nom,'String');
-set(handles.edit2,'String',var1name);
 cantPart = get(handles.popupmenu1,'Value');
-rmin1 = get(handles.min1,'String');
-rmax1 = get(handles.max1,'String');
+rmin1 = str2num(get(handles.min1,'String'));
+rmax1 = str2num(get(handles.max1,'String'));
+axis(handles.axesvar1,[rmin1 rmax1 0 1]);% rango[xmin xmax ymin ymax]
 
 var1= zeros(cantPart,3);
 for i = 1:cantPart
-    set(handles.popupmenu2,'String',strcat('particion ',int2str(i)));
+    menupart{i}= strcat('particion  ',int2str(i));
 end 
+set(handles.numpart1,'String',menupart);
+
+handles.rmin1 = rmin1;
+handles.rmax1 = rmax1;
+handles.var1 = var1;
 guidata(hObject, handles);
 
 
@@ -251,6 +296,52 @@ function max1_Callback(hObject, eventdata, handles)
 % --- Executes during object creation, after setting all properties.
 function max1_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to max1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function pt2_Callback(hObject, eventdata, handles)
+% hObject    handle to pt2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of pt2 as text
+%        str2double(get(hObject,'String')) returns contents of pt2 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function pt2_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to pt2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function pt3_Callback(hObject, eventdata, handles)
+% hObject    handle to pt3 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of pt3 as text
+%        str2double(get(hObject,'String')) returns contents of pt3 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function pt3_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to pt3 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 

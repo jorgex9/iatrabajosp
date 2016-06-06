@@ -84,16 +84,28 @@ plot(index,CompraComp,'r');
 saveas(gcf, 'comprasInterpolacion.png');
 % print('grafico Compras con interpolacion ','-dpng');
 
+% Determinacion de datos de entrenamiento  y datos de test, se seleccionara
+% una tecnida de Hold out tomando un 20% para test y resto para
+% entrenamiento. Dado que el total datos es de 487 el 20 % ~= 97
+index_test = datasample(index,97,'Replace',false)
+data_test = VentaComp (index_test)
+data_train = VentaComp (-index_test)
+
+% Regla de la capa oculta - numero de patrones
+% Esta regla relaciona el número de neuronas de la capa oculta con el total de patrones presentados al sistema, siendo habitual la
+% relación 1/30 (una neurona por cada 30 patrones).
+% Aunque esta regla no resulta matemáticamente justificable, ha demostrado un buen comportamiento en diversas aplicaciones
+% prácticas ==> 390/30 = 13
+% se utilizaran 13 neuronas en la capa oculta.
+
+ncapas = [1 13 1];
 
 
-% 
-% Tentrada = dataset';
-% intervalo = minmax(Tentrada);
-% 
-% ncapas = [10 5 1];
-% funcacti = {'tansig' 'tansig' 'purelin'};
-% 
-% net = newff(intervalo, ncapas, funcacti);
+intervalo = minmax (VentaComp');
+
+funcacti = {'tansig' 'tansig' 'purelin'};
+
+net = newff(intervalo, ncapas, funcacti);
 % 
 % net = train(net, Tentrada)
 % 

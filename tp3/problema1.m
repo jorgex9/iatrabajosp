@@ -41,6 +41,7 @@ for i= 1: size(fechasComp,1)
     end    
 end
 
+
 VentaComp= zeros;
 CompraComp = zeros;
 

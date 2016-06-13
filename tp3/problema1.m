@@ -14,10 +14,10 @@ importfechasCompleta; %importamos datos de dias totales en el rango de fechas de
 index = 1:1:487; %creamos un indice
 
 % ordenamos vectores de forma vertical
-Compra = fliplr(Compra')';
-Venta = fliplr(Venta')';
-Fecha= fliplr(Fecha')';
-fechasComp = fliplr(fechasComp')';
+% Compra = fliplr(Compra')';
+% Venta = fliplr(Venta')';
+% Fecha= fliplr(Fecha')';
+% fechasComp = fliplr(fechasComp')';
 
 
 ind=1;

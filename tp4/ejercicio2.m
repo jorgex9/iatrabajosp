@@ -13,8 +13,11 @@ errorymax = 6.07 - f(max);
 
 
 % b) Funcion de Rosenbrock
+numvariables = 2;
+iteraciones = 300;
 g = @rosenbrock;
-minimoRosen = extremosuni(g,2,[],400);
+
+minimoRosen = extremosuni(g,numvariables,[],iteraciones);
 
 errorRosenX = 1 - minimoRosen(1)
 errorRosenY = 1 - minimoRosen(2)

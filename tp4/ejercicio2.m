@@ -12,18 +12,10 @@ errorxmax = 11.2 - max;
 errorymax = 6.07 - f(max);
 
 
-% % opts = gaoptimset('Generations',55,'PlotFcns',@gaplotbestf);
-% opts = gaoptimset('Generations',33,'PlotFcns',{@gaplotbestf,@gaplotstopping});
-% % rng(1,'twister') % for reproducibility
-% [xmin fval exitflag Output] = ga(f, 1,opts)  % calculamos el minimo xmin =5.0029
-% 
-% 
-% fprintf('The number of generations was : %d\n', Output.generations);
-% fprintf('The number of function evaluations was : %d\n', Output.funccount);
-% fprintf('The best function value found was : %g\n', fval);
-% 
-% % calculos de maximizacion
-% g =@(x) 1/f(x);
-% [xmax fvalmax exitflagmax] = ga(g, 1,[],[],[],[], 0,15,[],opts)  % calculamos el maximo xmax = 11,16
-% 
-% 
+% b) Funcion de Rosenbrock
+g = @rosenbrock;
+minimoRosen = extremosuni(g,2,[],400);
+
+errorRosenX = 1 - minimoRosen(1)
+errorRosenY = 1 - minimoRosen(2)
+errorRosenZ = 0 - rosenbrock(minimoRosen)

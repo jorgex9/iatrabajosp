@@ -8,5 +8,6 @@ z = linspace(-1,1,1000);
 % etiquetas
 f = funcion (x,y,z);
 
+dataset = [x y z f];
 
 
